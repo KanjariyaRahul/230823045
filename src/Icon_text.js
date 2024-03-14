@@ -1,4 +1,4 @@
-function Icon_text({ path, color = 'rgb(122, 122, 122)', size = 24, text }) {
+function Icon_text({path, text, fill, viewbox}) {
     return (
         <>
             <meta charSet="UTF-8" />
@@ -12,12 +12,12 @@ function Icon_text({ path, color = 'rgb(122, 122, 122)', size = 24, text }) {
                 </button>
             </div> */}
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <svg width={size} height={size}  stroke={color} viewBox="0 0 24 24" fill="none">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px'  }}>
+            <svg  style={{paddingTop: 5}} width="24" height="24"  fill={fill} stroke="currentColor"  viewBox={viewbox} color='rgb(122, 122, 122)' >
             <path d={path} />
             </svg>
-            <span>{text}</span>
-  </div>
+            <span style={{textAlign: "center" , fontSize: "14px", color: "rgb(122, 122, 122)"}}>{text}</span>
+            </div>
         </>
 
     );
