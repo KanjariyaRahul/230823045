@@ -81,8 +81,9 @@ const InputForm = () => {
               </div>
               {/* end */}
             </div>
+      
           </div>
   )
 }
 
-export default InputForm
+export default InputForm;

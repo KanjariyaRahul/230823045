@@ -155,31 +155,36 @@
     border-radius: 50%;
     display: inline-block;
 }
- html::before {
-     content: "";
-     position: fixed;
-     left: 0;
-     top: 0;
-     width: 100vw;
-     height: 100vh;
-     display: block;
- }
+
  
  /* === range theme and appearance === */
  input[type="range"] {
      font-size: 1.5rem;
-     width: 16.5em;
+     width: 19.5em;
  }
  
  input[type="range"] {
-     color: #628ef9;
-     --thumb-height: 0.5em;
-     --track-height: 0.125em;
-     /* border-radius: 30%; */
-     --track-color: rgba(0, 0, 0, 0.2);
-     --brightness-down: 80%;
-     --clip-edges: 0.125em;
- }
+    color: #628ef9;
+    --thumb-height: 0.5em;
+    --track-height: 0.2em;
+    --track-color: rgba(0, 0, 0, 0.2);
+    --brightness-down: 80%;
+    --clip-edges: 0.125em;
+    border-radius: 10px; /* Adding border-radius */
+  }
+
+  
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: var(--track-height);
+    border-radius: 35%; /* Adding border-radius */
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  
+  /* For other browsers */
+  input[type="range"] {
+    /* Add fallback styles for other browsers */
+  }
  
  input[type="range"].win10-thumb {
      color: #2b2d42;
@@ -192,14 +197,8 @@
      html {
          background-color: #000;
      }
- 
      html::before {
- /* 		background: radial-gradient(circle at center, #101112, #000); */
-     }
- 
-     input[type="range"] {
-         color: #f07167;
-         --track-color: rgba(255, 255, 255, 0.1);
+ 		background: radial-gradient(circle at center, #101112, #000);
      }
  
      input[type="range"].win10-thumb {
@@ -354,7 +353,10 @@
         flex-wrap: wrap;
         overflow: auto hidden;
     }
-
+    input[type="range"] {
+        font-size: 1.5rem;
+        width: 10.5em;
+    }
     .nav-link {
         font-size: 12px;
         padding: 5px;
