@@ -15,7 +15,7 @@ const InputForm = () => {
                   </div>
                 </div>
                 <div className="col-12 py-2 form-group range__slider">
-                  <input type="range" className="form-group range__slider" id="MonthlySlider" min={0} max={100000000} defaultValue={0} tabIndex={0} aria-disabled="false" aria-valuemax={1000000000} aria-valuemin={0} aria-valuenow={1000} aria-valuetext="1000" aria-orientation="horizontal" step={1500} />
+                  <input type="range" class="slider" id="myRange" min={0} max={100000000} defaultValue={0} tabIndex={0} aria-disabled="false" aria-valuemax={1000000000} aria-valuemin={0} aria-valuenow={1000} aria-valuetext="1000" aria-orientation="horizontal" step={1500} />
                 </div>
                 <div className="col-12 row mx-0 px-0 align-items-center">
                   <div className="col fw-bold prich_value">₹ 1 Rs</div>
