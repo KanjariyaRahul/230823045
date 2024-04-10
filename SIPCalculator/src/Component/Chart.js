@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import PieChart from './PieChart';
 
 const Chart = () => {
   return (
@@ -7,7 +8,10 @@ const Chart = () => {
     <div className="chart_img col-12 mb3 d-flex align-items-center justify-content-center">
       <div className="col-lg-4 chart_side d-flex align-items-center justify-content-center order-lg-3 order-3 mb-lg-0 mb-4">
         <div className="px5">
-          <div className="chart" style={{display: 'block'}}><canvas basechart width={600} height={600} id="myChart" style={{display: 'block', boxSizing: 'border-box', height: '300px', width: '300px'}} className="ng-star-inserted" />{/**/}{/**/}{/**/}</div>
+          <div className="chart" style={{display: 'block'}}>
+           
+            <PieChart id="myChart" style={{display: 'block', boxSizing: 'border-box', height: '300px', width: '300px'}} className="ng-star-inserted"/>
+           </div>
         </div>
       </div>
     </div>

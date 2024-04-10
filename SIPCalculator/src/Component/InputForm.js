@@ -109,14 +109,14 @@ const InputForm = (props) => {
                   type="range" 
                   className="form-group range__slider" 
                   id="MonthlySlider" 
-                  min={1}
+                 
                    max={100}
                   defaultValue={0} 
                   tabIndex={0} 
                   aria-disabled="false" 
                   aria-valuemax={100} 
                   aria-valuemin={1} 
-                  aria-valuenow={10.5} 
+                  aria-valuenow="10.5" 
                   aria-valuetext="10.5"
                   aria-orientation="horizontal" step={0.1} />
                 </div>
