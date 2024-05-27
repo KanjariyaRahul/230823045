@@ -12,16 +12,14 @@ const InputForm = (props) => {
 
   const handleYearChange = (e) => {
     let value = e.target.value;
-    // Ensure the entered value is not greater than the maximum allowed year
     if (parseInt(value) > maxYear) {
       value = maxYear.toString();
     }
     setTenureYear(value);
   };
 
-  const handleMonthChange = (e) => {  
+  const handleMonthChange = (e) => {
     let value = parseInt(e.target.value);
-    // Ensure the selected month is not greater than the maximum allowed month
     if (value > maxMonth) {
       value = maxMonth;
     }
@@ -37,9 +35,27 @@ const InputForm = (props) => {
     setTenureMonth(months);
   };
 
+  // Calculate SIP
+  const calculateSIP = (Expected_Rate_of_Return) => {
+    const monthlyRate = Expected_Rate_of_Return / 100 / 12;
+    const totalMonths = parseInt(tenureYear) * 12 + parseInt(tenureMonth);
+    const sip = monthlyInvestment * ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) * (1 + monthlyRate);
+    return sip;
+  };
+  
+  // Calculate total value, invested amount, and estimated returns
+  const sipAmount = calculateSIP(Expected_Rate_of_Return);
+  const investedAmount = monthlyInvestment * (parseInt(tenureYear) * 12 + parseInt(tenureMonth));
+  const estimatedReturns = sipAmount - investedAmount;
+  
+              
+  let estimated_Returns =  estimatedReturns.toFixed(3)
+  let invested_Amount =  investedAmount.toFixed(2)
+
 
 
   return (
+    <>
           <div className="col-lg-5 row mx-0 mb-lg-0 mb-4 order-lg-1 order-1 mb-lg-0 mb-4 calculator_side">
             <div className="col-12 ps-0 cl_left">
               {/* start Monthly Investment slider */}
@@ -109,14 +125,14 @@ const InputForm = (props) => {
                   type="range" 
                   className="form-group range__slider" 
                   id="MonthlySlider" 
-                 
+                  min={1}
                    max={100}
                   defaultValue={0} 
                   tabIndex={0} 
                   aria-disabled="false" 
                   aria-valuemax={100} 
                   aria-valuemin={1} 
-                  aria-valuenow="10.5" 
+                  aria-valuenow={10.5} 
                   aria-valuetext="10.5"
                   aria-orientation="horizontal" step={0.1} />
                 </div>
@@ -180,11 +196,30 @@ const InputForm = (props) => {
         <div className="col fw-bold prich_value">1 Month</div>
         <div className="col-auto fw-bold prich_value text-end">360 Month</div>
       </div>
+      
     </div>
-      {/* end */}
-           
+      {/* end */}  
+      </div>
           </div>
+          <div className="col-lg-2 order-lg-2 order-2 mb-lg-0 mb-4 calculator_side">
+          <div className="row align-items-center mx-0 cl_right">
+            <div className="col-12 row mx-0 ps-3 pe-0 py-5 mid_amount">
+              <div className="col-12 px-0 emi_heading fw-bold mb-2 ng-star-inserted">Total Value</div>
+              {/**/}
+              <div className="main_amount px-0 fw-bold mb-4 ng-star-inserted">
+                ₹ {sipAmount.toFixed(3)}</div>{/**/}{/**/}{/**/}
+              <div className="col-12 px-0 emi_heading fw-bold mb-2 ng-star-inserted">Est. Returns</div>
+              {/**/}
+              <div className="total_amount px-0 mb-4 ng-star-inserted">₹
+              {estimated_Returns}</div>{/**/}
+              <div className="col-12 px-0 emi_heading fw-bold mb-2 ng-star-inserted">Invested Amount</div>
+              {/**/}
+              <div className="total_amount px-0 mb-4 ng-star-inserted">₹
+              {invested_Amount}</div>{/**/}{/**/}{/**/}
+            </div>
           </div>
+        </div>   
+      </>  
   )
 }
 

@@ -1,37 +1,46 @@
-import React from 'react';
-import { Pie } from 'react-chartjs-2';
-import { Bar, Line, Radar,pie } from 'react-chartjs-2';
-import { Chart as ChartJS } from 'chart.js/auto';
+import React, { useEffect, useRef } from 'react';
+import { Chart, ArcElement, Tooltip, Legend, PieController } from 'chart.js';
+
+Chart.register(ArcElement, Tooltip, Legend, PieController);
 
 const PieChart = () => {
-  const data = {
-    labels: ['Invested Amount', 'Est Returns'],
-    datasets: [
-      {
-        label: 'Example Dataset',
-        backgroundColor: ['rgb(173, 152, 234)', 'rgb(221, 209, 255)'], // Different colors for each data point
-        borderColor: 'transparent',
-        borderWidth: 2,
-        data: [30, 70]
-      }
-    ]
-  };
+  const chartRef = useRef(null);
+  const myChartRef = useRef(null);
 
-  const options = {
-    title: {
-      display: true,
-      text: 'Pie Chart Example'
+  useEffect(() => {
+    const ctx = chartRef.current.getContext('2d');
+
+    // Destroy the existing chart instance if it exists
+    if (myChartRef.current) {
+      myChartRef.current.destroy();
     }
-  };
+
+    // Create a new chart instance
+    myChartRef.current = new Chart(ctx, {
+      type: 'pie', // or 'doughnut'
+      data: {
+        labels: ['Red', 'Blue', 'Yellow'],
+        datasets: [{
+          data: [300, 50, 100],
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        }]
+      },
+      options: {
+        responsive: true,
+      }
+    });
+
+    // Cleanup function to destroy the chart instance when the component unmounts
+    return () => {
+      if (myChartRef.current) {
+        myChartRef.current.destroy();
+      }
+    };
+  }, []);
 
   return (
-    <div>
-      <Pie
-        data={data}
-        options={options}
-      />
-    </div>
+    <canvas ref={chartRef} id="myChart" />
   );
-}
+};
 
 export default PieChart;

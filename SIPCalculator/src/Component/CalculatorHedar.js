@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import sip_investment from '../img/sip_investment.svg';
 import lumpsum from '../img/lumpsum.svg';
 import sip_calculator from '../img/sip_calculator.svg';
+// import PieChart from './PieChart';
 import InputForm from  './InputForm';
-import Display from './Display';
 import Chart from './Chart';
 
 
@@ -98,7 +98,6 @@ const SIPCalculator = () => {
               <div className="container">
                 <div className="row align-items-center mt-5 py-2 mx-0 justify-content-between cards">
                 <InputForm loan_heading = "Monthly Investment" />
-                <Display/>
                 <Chart/>
                 </div>
               </div>
@@ -113,7 +112,6 @@ const SIPCalculator = () => {
               <div className="container">
                 <div className="row align-items-center mt-5 py-2 mx-0 justify-content-between cards">
                 <InputForm loan_heading = "Goal Amount" />
-                <Display/>
                 <Chart/>
                 </div>
               </div>
@@ -129,7 +127,6 @@ const SIPCalculator = () => {
               <div className="container">
                 <div className="row align-items-center mt-5 py-2 mx-0 justify-content-between cards">
                 <InputForm  loan_heading = "" />
-                <Display/>
                 <Chart/>
                 </div>
               </div>
