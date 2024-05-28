@@ -2,18 +2,25 @@ import React, { useState } from 'react';
 import sip_investment from '../img/sip_investment.svg';
 import lumpsum from '../img/lumpsum.svg';
 import sip_calculator from '../img/sip_calculator.svg';
-// import PieChart from './PieChart';
-import InputForm from  './InputForm';
-import Chart from './Chart';
-
+import InputForm from './InputForm';
+import PieChart from './PieChart';
 
 const SIPCalculator = () => {
   const [activeTab, setActiveTab] = useState('SIP Calculator');
+  const [sipAmount, setSipAmount] = useState(0);
+  const [investedAmount, setInvestedAmount] = useState(0);
+  const [estimatedReturns, setEstimatedReturns] = useState(0);
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
-  
+
+  const handleCalculation = (sip, invested, returns) => {
+    setSipAmount(sip);
+    setInvestedAmount(invested);
+    setEstimatedReturns(returns);
+  };
+
   return (
     <>
       <section className="hero_loan py-5">
@@ -22,13 +29,13 @@ const SIPCalculator = () => {
             <div className="col-md-7 left_side">
               <ul id="pills-tab" role="tablist" className="nav nav-pills mb-3 p-0 align-items-center justify-content-around justifycontent-between">
                 <li role="presentation" className="nav-item">
-                  <button  onClick={() => handleTabClick('SIP Calculator')} id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected={activeTab === 'SIP Calculator' ? 'true' : 'false'} className={`nav-link text-center px-2 w-100 fw-bold rounded-0 ${activeTab === 'SIP Calculator' ? 'active' : ''}`} tabIndex={0}>SIP Calculator</button>
+                  <button onClick={() => handleTabClick('SIP Calculator')} id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected={activeTab === 'SIP Calculator' ? 'true' : 'false'} className={`nav-link text-center px-2 w-100 fw-bold rounded-0 ${activeTab === 'SIP Calculator' ? 'active' : ''}`} tabIndex={0}>SIP Calculator</button>
                 </li>
                 <li role="presentation" className="nav-item">
-                  <button onClick={() => handleTabClick('Goal SIP')} id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected={activeTab === 'Goal SIP' ? 'true' : 'false'}  className={`nav-link text-center px-2 w-100 fw-bold rounded-0 ${activeTab === 'Goal SIP' ? 'active' : ''}`} tabIndex={-1}>Goal SIP</button>
+                  <button onClick={() => handleTabClick('Goal SIP')} id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected={activeTab === 'Goal SIP' ? 'true' : 'false'} className={`nav-link text-center px-2 w-100 fw-bold rounded-0 ${activeTab === 'Goal SIP' ? 'active' : ''}`} tabIndex={-1}>Goal SIP</button>
                 </li>
                 <li role="presentation" className="nav-item">
-                  <button onClick={() => handleTabClick('SIP with annual increase')} id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected={activeTab === 'SIP with annual increase' ? 'true' : 'false'}  className={`nav-link text-center px-2 w-100 fw-bold rounded-0 ${activeTab === 'SIP with annual increase' ? 'active' : ''}`} tabIndex={-1}>SIP with annual increase</button>
+                  <button onClick={() => handleTabClick('SIP with annual increase')} id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected={activeTab === 'SIP with annual increase' ? 'true' : 'false'} className={`nav-link text-center px-2 w-100 fw-bold rounded-0 ${activeTab === 'SIP with annual increase' ? 'active' : ''}`} tabIndex={-1}>SIP with annual increase</button>
                 </li>
               </ul>
               <div id="pills-tabContent rounded-0" className="tab-content">
@@ -83,57 +90,65 @@ const SIPCalculator = () => {
                 </div>
               </div>
             </div>
-            <div className="col-md-5 mb-md-0 mb-4 d-md-block d-none">{/**/}
+            <div className="col-md-5 mb-md-0 mb-4 d-md-block d-none">
               <div className="ng-star-inserted"><img src={sip_calculator} alt="" className="w-50" /></div>
-              {/**/}{/**/}
             </div>
           </div>
         </div>
         <div className="tab-content">
           {activeTab === 'SIP Calculator' && (
             <div>
-              
-            <form noValidate className="ng-untouched ng-pristine ng-valid">
-            <section className="loancalculator_section">
-              <div className="container">
-                <div className="row align-items-center mt-5 py-2 mx-0 justify-content-between cards">
-                <InputForm loan_heading = "Monthly Investment" />
-                <Chart/>
-                </div>
-              </div>
-              </section>
+              <form noValidate className="ng-untouched ng-pristine ng-valid">
+                <section className="loancalculator_section">
+                  <div className="container">
+                    <div className="row align-items-center mt-5 py-2 mx-0 justify-content-between cards">
+                      <InputForm onCalculate={handleCalculation} loan_heading="Monthly Investment" />
+                      <PieChart
+                        sipAmount={sipAmount}
+                        investedAmount={investedAmount}
+                        estimatedReturns={estimatedReturns}
+                      />
+                    </div>
+                  </div>
+                </section>
               </form>
             </div>
           )}
           {activeTab === 'Goal SIP' && (
             <div>
-            <form noValidate className="ng-untouched ng-pristine ng-valid">
-            <section className="loancalculator_section">
-              <div className="container">
-                <div className="row align-items-center mt-5 py-2 mx-0 justify-content-between cards">
-                <InputForm loan_heading = "Goal Amount" />
-                <Chart/>
-                </div>
-              </div>
-              </section>
+              <form noValidate className="ng-untouched ng-pristine ng-valid">
+                <section className="loancalculator_section">
+                  <div className="container">
+                    <div className="row align-items-center mt-5 py-2 mx-0 justify-content-between cards">
+                      <InputForm onCalculate={handleCalculation} loan_heading="Goal Amount" />
+                      <PieChart
+                        sipAmount={sipAmount}
+                        investedAmount={investedAmount}
+                        estimatedReturns={estimatedReturns}
+                      />
+                    </div>
+                  </div>
+                </section>
               </form>
             </div>
-            
           )}
           {activeTab === 'SIP with annual increase' && (
             <div>
-            <form noValidate className="ng-untouched ng-pristine ng-valid">
-            <section className="loancalculator_section">
-              <div className="container">
-                <div className="row align-items-center mt-5 py-2 mx-0 justify-content-between cards">
-                <InputForm  loan_heading = "" />
-                <Chart/>
-                </div>
-              </div>
-              </section>
+              <form noValidate className="ng-untouched ng-pristine ng-valid">
+                <section className="loancalculator_section">
+                  <div className="container">
+                    <div className="row align-items-center mt-5 py-2 mx-0 justify-content-between cards">
+                      <InputForm onCalculate={handleCalculation} loan_heading="Annual Increase SIP" />
+                      <PieChart
+                        sipAmount={sipAmount}
+                        investedAmount={investedAmount}
+                        estimatedReturns={estimatedReturns}
+                      />
+                    </div>
+                  </div>
+                </section>
               </form>
             </div>
-            
           )}
         </div>
       </section>
